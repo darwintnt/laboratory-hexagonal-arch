@@ -6,7 +6,6 @@ import { GetTaskUseCase } from '@/domain/use-cases/task/get-task.use-case.js'
 import { GetTasksUseCase } from '@/domain/use-cases/task/get-tasks.use-case.js'
 import { UpdateTaskUseCase } from '@/domain/use-cases/task/update-task.use-case.js'
 import { CreateTaskUseCase } from '@/domain/use-cases/task/create-task.use-case.js'
-import { Task } from '@/domain/entities/task.js'
 
 export class TaskController {
     private readonly getTasksUseCase: GetTasksUseCase
