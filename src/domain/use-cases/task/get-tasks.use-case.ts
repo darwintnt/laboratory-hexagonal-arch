@@ -1,13 +1,13 @@
-import type { ITaskRepository } from "../../repositories/task.repository.js";
+import type { ITaskRepository } from '../../repositories/task.repository.js'
 
 export class GetTasksUseCase {
-  private readonly repository: ITaskRepository;
+    private readonly repository: ITaskRepository
 
-  constructor(repository: ITaskRepository) {
-    this.repository = repository;
-  }
+    constructor(repository: ITaskRepository) {
+        this.repository = repository
+    }
 
-  async execute() {
-    return await this.repository.findAll();
-  }
+    async execute() {
+        return await this.repository.findAll()
+    }
 }
