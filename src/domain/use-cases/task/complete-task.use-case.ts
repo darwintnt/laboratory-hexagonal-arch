@@ -16,6 +16,6 @@ export class CompleteTaskUseCase {
 
     task.complete();
 
-    return await this.repository.update(task);
+    return await this.repository.update(id, task);
   }
 }

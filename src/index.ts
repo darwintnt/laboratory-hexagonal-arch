@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import express from "express";
 import { PrismaTaskRepository } from "./infrastructure/repositories/prisma-task.repository.js";
 import { TaskController } from "./application/controllers/task.controller.js";
+import { validateBody } from "./application/middleware/validate.middleware.js";
+import { CreateTaskDto } from "./application/dtos/create-task.dto.js";
 
 dotenv.config();
 const port = process.env.PORT ?? 3000;
@@ -17,7 +19,9 @@ const taskController = new TaskController(repository);
 
 app.get("/tasks/:id", (req, res) => taskController.getById(req, res));
 app.get("/tasks", (req, res) => taskController.getAll(req, res));
-app.post("/tasks", (req, res) => taskController.create(req, res));
+app.post("/tasks", validateBody(CreateTaskDto), (req, res) =>
+  taskController.create(req, res),
+);
 app.put("/tasks/:id", (req, res) => taskController.update(req, res));
 app.patch("/tasks/:id/complete", (req, res) =>
   taskController.complete(req, res),
