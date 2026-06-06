@@ -1,15 +1,19 @@
 {
   "compilerOptions": {
     // File Layout
-    "esModuleInterop": true,
     "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
     "target": "esnext",
     "rootDir": "./src",
     "outDir": "./dist",
-    "types": [],
+    "resolveJsonModule": true,
+    "removeComments": true,
     // For nodejs:
     // "lib": ["esnext"],
-    // "types": ["node"],
+    "types": [
+      "node"
+    ],
     // and npm install -D @types/node
     // Other Outputs
     "sourceMap": true,
@@ -34,9 +38,19 @@
     "skipLibCheck": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }
