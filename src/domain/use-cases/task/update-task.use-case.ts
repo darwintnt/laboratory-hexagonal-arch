@@ -8,7 +8,7 @@ export class UpdateTaskUseCase {
     this.repository = repository;
   }
 
-  async execute(task: Task) {
-    return await this.repository.update(task);
+  async execute(id: string, task: Task) {
+    return await this.repository.update(id, task);
   }
 }

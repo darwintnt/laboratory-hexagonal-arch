@@ -34,13 +34,10 @@ export class PrismaTaskRepository implements ITaskRepository {
     return this.mapperToEntity(newTask);
   }
 
-  async update(task: Task): Promise<Task> {
+  async update(id: string, task: Task): Promise<Task> {
     const newTask = await this.repository.taskSchema.update({
-      where: { id: task.getId() },
-      data: {
-        title: task.getTitle(),
-        completed: task.isCompleted(),
-      },
+      where: { id },
+      data: { ...task },
     });
 
     return this.mapperToEntity(newTask);

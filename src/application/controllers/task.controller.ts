@@ -8,7 +8,6 @@ import { UpdateTaskUseCase } from "@/domain/use-cases/task/update-task.use-case.
 import { CreateTaskUseCase } from "@/domain/use-cases/task/create-task.use-case.js";
 
 export class TaskController {
-  private readonly repository: ITaskRepository;
   private readonly getTasksUseCase: GetTasksUseCase;
   private readonly getTaskUseCase: GetTaskUseCase;
   private readonly createTaskUseCase: CreateTaskUseCase;
@@ -17,7 +16,6 @@ export class TaskController {
   private readonly completeTaskUseCase: CompleteTaskUseCase;
 
   constructor(repository: ITaskRepository) {
-    this.repository = repository;
     this.getTasksUseCase = new GetTasksUseCase(repository);
     this.getTaskUseCase = new GetTaskUseCase(repository);
     this.createTaskUseCase = new CreateTaskUseCase(repository);
@@ -59,7 +57,10 @@ export class TaskController {
 
   async update(req: Request, res: Response) {
     try {
-      const tasks = await this.updateTaskUseCase.execute(req.body);
+      const tasks = await this.updateTaskUseCase.execute(
+        req.params.id as string,
+        req.body,
+      );
       res.json(tasks);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
