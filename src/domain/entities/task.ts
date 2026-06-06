@@ -25,7 +25,7 @@ export class Task {
   }
 
   complete(): void {
-    if (this.complete) {
+    if (this.completed) {
       throw new Error("The task is completed");
     }
 

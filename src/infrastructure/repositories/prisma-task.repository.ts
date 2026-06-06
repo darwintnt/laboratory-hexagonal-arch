@@ -19,12 +19,11 @@ export class PrismaTaskRepository implements ITaskRepository {
   }
 
   async findById(id: string): Promise<Task | null> {
-    throw new Error("Method not implemented.");
+    const task = await this.repository.taskSchema.findUnique({ where: { id } });
+    return this.mapperToEntity(task);
   }
 
   async create(task: Task): Promise<Task> {
-    console.log(task);
-
     const newTask = await this.repository.taskSchema.create({
       data: {
         title: task.getTitle(),
@@ -36,11 +35,19 @@ export class PrismaTaskRepository implements ITaskRepository {
   }
 
   async update(task: Task): Promise<Task> {
-    throw new Error("Method not implemented.");
+    const newTask = await this.repository.taskSchema.update({
+      where: { id: task.getId() },
+      data: {
+        title: task.getTitle(),
+        completed: task.isCompleted(),
+      },
+    });
+
+    return this.mapperToEntity(newTask);
   }
 
   async delete(id: string): Promise<void> {
-    throw new Error("Method not implemented.");
+    await this.repository.taskSchema.delete({ where: { id } });
   }
 
   private mapperToEntity(data: TaskSchema): Task {
